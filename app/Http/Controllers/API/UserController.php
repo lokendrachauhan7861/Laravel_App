@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -55,6 +56,8 @@ class UserController extends Controller
 
     public function createUser(Request $request)
     {
+
+      
        $name = $request->name;
        $email = $request->email;
        $password = Hash::Make($request->password);
@@ -83,6 +86,3 @@ class UserController extends Controller
       return $checkEmail = User::where('email',$email)->count();
     }
 }
-
-
-

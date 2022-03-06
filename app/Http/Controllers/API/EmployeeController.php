@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
 use DB;
@@ -14,7 +15,7 @@ class EmployeeController extends Controller
   public function employee(Request $request)
   {
     //dd($request);
-    $skip = $request->skip;
+    $skip = $request->skip;  
     $limit = $request->limit;
     $employee = Employee::skip($skip)->take($limit)->get();
     $totalRecordCount = $this->totalCountRecords();
@@ -25,13 +26,19 @@ class EmployeeController extends Controller
   }
 
   public function addEmployee(Request $request)
-  {
+  {     
+
+         
+         if(!empty($request->file('file')))
+         {
          $file = $request->file('file');
          $uploadPath = 'image';
          $filename = $file->getClientOriginalName();
          $file->move($uploadPath,$filename);
-         $employeeData = json_decode($request->data,true);
-         $employeeData['image'] = $filename;
+         }
+         $employeeData = $request->all();
+         //dd($employeeData);
+         //$employeeData['image'] = $filename;
          $employee =Employee::create($employeeData);
          return Response::json(['message'=>'Employee Records Added Successfully.']);
   }

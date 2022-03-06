@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use Response;
@@ -22,3 +23,4 @@ class CountryController extends Controller
 
     
 }
+
